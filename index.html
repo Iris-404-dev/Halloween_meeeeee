@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Halloween Trick-or-Treat TipMe Advance 3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    background: radial-gradient(circle at top, #330000, #000000);
+    color: #fff;
+    text-align: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 3em;
+    margin-top: 30px;
+    color: orange;
+    text-shadow: 3px 3px #000;
+    animation: glow 1.5s infinite alternate;
+  }
+
+  @keyframes glow {
+    0% { text-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600; }
+    100% { text-shadow: 0 0 20px #ffcc00, 0 0 40px #ffcc00; }
+  }
+
+  .tipme-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 20px 40px;
+    font-size: 1.5em;
+    color: #fff;
+    background: orange;
+    border-radius: 15px;
+    text-decoration: none;
+    box-shadow: 0 0 15px #ff8000;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 10;
+  }
+
+  .tipme-btn:hover {
+    background: darkorange;
+    box-shadow: 0 0 40px #ffbf00;
+    transform: scale(1.2) rotate(-5deg);
+  }
+
+  .qr {
+    margin-top: 30px;
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .qr:hover {
+    transform: scale(1.3);
+    box-shadow: 0 0 30px #ffcc00;
+  }
+
+  .pumpkin {
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    font-size: 6em;
+    animation: updown 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes updown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+  }
+
+  .ghost-fly {
+    position: absolute;
+    font-size: 3em;
+    animation: fly linear infinite;
+    cursor: pointer;
+  }
+
+  @keyframes fly {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(100vw, -50vh); }
+  }
+
+  .pop-up {
+    position: absolute;
+    font-size: 2em;
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+</style>
+</head>
+<body>
+
+<audio autoplay>
+  <source src="https://www.soundjay.com/halloween/sounds/ghost-1.mp3" type="audio/mpeg">
+</audio>
+
+<h1>🎃 Trick-or-Treat! 🎃</h1>
+
+<a class="tipme-btn" href="https://tipme.in.th/ranmachijraaa" target="_blank" 
+   onclick="playLaugh()">TipMe ให้ผีหน่อย!</a>
+
+<div>
+  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tipme.in.th/ranmachijraaa" alt="QR Code">
+</div>
+
+<div class="pumpkin">🎃</div>
+
+<div class="ghost-fly" style="top:50px; left:-50px;">👻</div>
+<div class="ghost-fly" style="top:150px; left:-100px;">👻</div>
+<div class="ghost-fly" style="top:250px; left:-150px;">👻</div>
+
+<div class="pop-up" id="popup1">🎃</div>
+<div class="pop-up" id="popup2">👻</div>
+
+<script>
+  const ghosts = document.querySelectorAll('.ghost-fly');
+  ghosts.forEach((g, i) => {
+    const duration = Math.random() * 10 + 5;
+    g.style.animationDuration = duration + 's';
+    g.style.animationDelay = (Math.random() * 5) + 's';
+    g.addEventListener('mouseover', () => { new Audio('https://www.soundjay.com/halloween/sounds/ghost-2.mp3').play(); });
+  });
+
+  // Pop-up ฟักทองและผีสุ่ม
+  function showPopup() {
+    const popups = [document.getElementById('popup1'), document.getElementById('popup2')];
+    popups.forEach(p => {
+      p.style.left = Math.random()*80 + 'vw';
+      p.style.top = Math.random()*60 + 'vh';
+      p.style.opacity = 1;
+      p.style.transform = 'scale(1.5)';
+      setTimeout(() => { p.style.opacity = 0; p.style.transform = 'scale(1)'; }, 1000);
+    });
+  }
+  setInterval(showPopup, 3000);
+
+  function playLaugh() {
+    new Audio('https://www.soundjay.com/halloween/sounds/evil-laugh-1.mp3').play();
+  }
+</script>
+
+</body>
+</html>
